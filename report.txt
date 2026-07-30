@@ -1,0 +1,16 @@
+============================================================
+NETWORK TRAFFIC ANALYSIS REPORT
+Generated: 2026-07-30 07:42:44
+============================================================
+
+Total alerts: 2
+
+[1] Port Scan ALERT
+    Source IP : 172.17.0.1
+    Target    : 172.17.0.2
+    Detail    : 1000 distinct ports within 10s
+
+[2] Brute-Force ALERT
+    Source IP : 172.17.0.1
+    Target    : 172.17.0.2:80
+    Detail    : 48 requests within 15s

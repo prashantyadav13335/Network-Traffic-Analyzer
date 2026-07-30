@@ -1,0 +1,8 @@
+password
+123456
+admin
+password123
+letmein
+qwerty
+dvwa
+test123
