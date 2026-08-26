@@ -45,10 +45,26 @@ Beyond offline `.pcap` analysis, this project also includes a **real-time detect
 
 ### Running the Live Dashboard
 
+### Running the Live Dashboard
+
+The included `setup.sh` script automates the entire process — starting the target container, detecting its IP and the correct network interface, and launching the dashboard.
+
+```bash
+sudo bash setup.sh
+```
+
+Then open the forwarded port 5000 URL in your browser (or `http://localhost:5000` on a local machine). Generate traffic against the target (e.g. `nmap -sV <target-ip>`) and watch alerts appear on the dashboard in real time.
+
+**Manual setup (if not using the script):**
+
 ```bash
 pip install flask --break-system-packages
-sudo python3 app.py
+export TARGET_IP=<target-container-ip>
+export IFACE=<network-interface>
+sudo -E python3 app.py
 ```
+
+`TARGET_IP` and `IFACE` default to `172.17.0.2` and `docker0` if not set, matching this project's Docker-based lab setup.
 
 Then open `http://localhost:5000` (or the forwarded port URL if running in a container/cloud environment). Generate traffic against the target (e.g. `nmap -sV <target-ip>`) and watch alerts appear on the dashboard in real time.
 
