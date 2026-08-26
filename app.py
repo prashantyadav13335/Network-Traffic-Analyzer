@@ -3,13 +3,13 @@ from scapy.all import sniff, TCP, IP
 from collections import defaultdict
 import threading
 import time
+import os
 
 app = Flask(__name__)
 
-TARGET_IP = "172.17.0.2"
+TARGET_IP = os.environ.get("TARGET_IP", "172.17.0.2")
 TARGET_PORT = 80
-IFACE = "docker0"
-
+IFACE = os.environ.get("IFACE", "docker0")
 PORT_THRESHOLD = 10
 PORT_TIME_WINDOW = 10
 
