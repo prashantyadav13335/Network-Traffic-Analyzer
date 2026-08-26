@@ -36,3 +36,20 @@ Traffic is filtered to only packets destined for the target IP, which excludes r
 `analyzer.py` runs both detectors together and generates a unified report (printed to console and saved as `report.txt`).
 
 ### Sample Output
+## Live Detection Dashboard
+
+Beyond offline `.pcap` analysis, this project also includes a **real-time detection system** with a live web dashboard.
+
+- `live_detector.py` — sniffs live traffic using Scapy and prints alerts to the console the moment a threshold is crossed, instead of analyzing a saved file after the fact.
+- `app.py` + `templates/index.html` — a Flask web application that runs the same live-sniffing logic in a background thread and exposes a `/api/alerts` endpoint. The dashboard auto-refreshes every 2 seconds and displays alerts as color-coded rows (red for Port Scan, orange for Brute-Force).
+
+### Running the Live Dashboard
+
+```bash
+pip install flask --break-system-packages
+sudo python3 app.py
+```
+
+Then open `http://localhost:5000` (or the forwarded port URL if running in a container/cloud environment). Generate traffic against the target (e.g. `nmap -sV <target-ip>`) and watch alerts appear on the dashboard in real time.
+
+**Note:** the sniffing interface (`IFACE` in `app.py`) must match wherever the target's traffic actually flows — e.g. `docker0` if the target is a Docker container on the same host, or `eth0`/`any` for a real network interface.
